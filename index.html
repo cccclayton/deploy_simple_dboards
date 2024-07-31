@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solar dashboards</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            background-color: rgb(215, 215, 215);
+        }
+
+        .header {
+            background-color: rgb(0, 85, 255);
+            color: white;
+            padding: 20px;
+            text-align: left;
+        }
+
+        .header-title {
+            margin: 0;
+            font-size: 40px;
+        }
+
+        .primary-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            width: 200px;
+        }
+
+        .primary-button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .primary-button:active {
+            background-color: #004494;
+        }
+
+        .primarybutton-row {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 10px; /* Add space between the two button groups */
+        }
+
+        .secondarybutton-row {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding-top: 10px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .secondary-button {
+            background-color: #007bff;
+            color: rgb(255, 255, 255);
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            width: 100px;
+        }
+
+        .option-container {
+            margin: 0 auto;
+            width: fit-content;
+            justify-content: center;
+        }
+
+        .school-logo {
+            width: 75px;
+            height: 75px;
+            mix-blend-mode: multiply;
+        }
+
+        .Dashboard-container {
+            width: 60%;
+            height: 70%;
+            margin: 0 auto; /* This centers the container horizontally */
+            justify-content: center; /* Center content horizontally */
+            align-items: center; /* Center content vertically */
+        }
+
+
+
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <h1 class="header-title">Estate Office and SOE dashboards</h1>
+    </header>
+
+    <div class="option-container">
+        <div class="primarybutton-row">
+            <img class="school-logo" src="https://scontent.fsin15-2.fna.fbcdn.net/v/t39.30808-1/391685597_716030413893584_7246463912760323306_n.jpg?stp=dst-jpg_p200x200&_nc_cat=100&ccb=1-7&_nc_sid=f4b9fd&_nc_ohc=zkOvGv75rTkQ7kNvgEFDr87&_nc_ht=scontent.fsin15-2.fna&gid=AMo3611xJKDXxy_jcSVyhdp&oh=00_AYCvu1me_VNcFXaSaUh3iYFp6WxN1-AYw-R5oIXECNHRyw&oe=66AF3EE2">
+            <button class="primary-button" onclick="toggleButtons()">Estate Office</button>
+            <button class="primary-button" onclick="toggleSOE()">SOE</button>
+            <img class="school-logo" src="https://scontent.fsin15-1.fna.fbcdn.net/v/t39.30808-1/393227024_779149814012848_607815142933131920_n.jpg?stp=c3.3.194.194a_dst-jpg_p200x200&_nc_cat=108&ccb=1-7&_nc_sid=f4b9fd&_nc_ohc=PFrRdjp6iYUQ7kNvgHFBDKx&_nc_ht=scontent.fsin15-1.fna&oh=00_AYC-mK0D4nL7CLS7-5mDoqy-juzwwe5s66ZIyun5q-EVnA&oe=66AF3F69">
+        </div>
+
+        <div class="secondarybutton-row hidden" id="Estate-buttons">
+            <button class="secondary-button" onclick="toggleEstateMain()">Main</button>
+            <button class="secondary-button" onclick="toggleEstateAnomaly()">Anomaly</button>
+        </div>
+    </div>
+
+    <div class="Dashboard-container">
+      <body> 
+         <header class = "DB hidden"> 
+            <iframe id = dashboardIframe title="EstateOffice - Import" 
+               width= 100% 
+               height=720px
+               src="https://app.powerbi.com/reportEmbed?reportId=4918d015-487b-4f50-91f9-55e082169606&autoAuth=true&ctid=cba9e115-3016-4462-a1ab-a565cba0cdf1" 
+               frameborder="10" 
+               allowFullScreen="false">
+            </iframe> 
+         </header>
+      </body>
+    </div>
+
+
+    <script>
+        function toggleButtons() {
+            const additionalButtons = document.getElementById('Estate-buttons');
+            additionalButtons.classList.toggle('hidden');
+        }
+
+        function toggleEstateMain() {
+            const iframe = document.getElementById('dashboardIframe');
+            iframe.src = "https://app.powerbi.com/reportEmbed?reportId=4918d015-487b-4f50-91f9-55e082169606&autoAuth=true&ctid=cba9e115-3016-4462-a1ab-a565cba0cdf1";
+            const header = document.querySelector('.DB');
+            header.classList.toggle('hidden');
+        }
+
+        function toggleEstateAnomaly() {
+            const iframe = document.getElementById('dashboardIframe');
+            iframe.src = "https://app.powerbi.com/reportEmbed?reportId=10fde2dd-e5e5-499f-b3c6-be1ebd99e672&autoAuth=true&ctid=cba9e115-3016-4462-a1ab-a565cba0cdf1";
+            iframe.title = "Anomaly Dashboard"
+            const header = document.querySelector('.DB');
+            header.classList.toggle('hidden');
+        }
+
+        function toggleSOE() {
+         const iframe = document.getElementById('dashboardIframe');
+            iframe.src = "https://app.powerbi.com/reportEmbed?reportId=242316d4-1c02-4e90-a721-2670da54a5ac&autoAuth=true&ctid=cba9e115-3016-4462-a1ab-a565cba0cdf1";
+            iframe.title = "SOE"
+            const header = document.querySelector('.DB');
+            header.classList.toggle('hidden');
+        }
+
+
+    </script>
+</body>
+</html>
