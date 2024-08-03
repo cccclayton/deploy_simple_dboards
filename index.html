@@ -103,9 +103,6 @@
             justify-content: center; /* Center content horizontally */
             align-items: center; /* Center content vertically */
         }
-
-
-
     </style>
 </head>
 
@@ -126,53 +123,74 @@
             <button class="secondary-button" onclick="toggleEstateMain()">Main</button>
             <button class="secondary-button" onclick="toggleEstateAnomaly()">Anomaly</button>
         </div>
+
+        <div class="secondarybutton-row hidden" id="SOE-buttons">
+            <button class="secondary-button" onclick="toggleSOEMain()">Main</button>
+            <button class="secondary-button" onclick="goToStreamlit()">Battery planning</button>
+        </div>
     </div>
 
     <div class="Dashboard-container">
-      <body> 
-         <header class = "DB hidden"> 
-            <iframe id = dashboardIframe title="EstateOffice - Import" 
-               width= 100% 
-               height=720px
-               src="https://app.powerbi.com/reportEmbed?reportId=4918d015-487b-4f50-91f9-55e082169606&autoAuth=true&ctid=cba9e115-3016-4462-a1ab-a565cba0cdf1" 
-               frameborder="10" 
-               allowFullScreen="false">
+        <header class="DB hidden"> 
+            <iframe id="dashboardIframe" title="EstateOffice - Import" 
+                width="100%" 
+                height="720px"
+                src=""
+                frameborder="10" 
+                allowfullscreen="false">
             </iframe> 
-         </header>
-      </body>
+        </header>
     </div>
-
 
     <script>
         function toggleButtons() {
             const additionalButtons = document.getElementById('Estate-buttons');
             additionalButtons.classList.toggle('hidden');
+            
+            // Hide SOE buttons if visible
+            const soeButtons = document.getElementById('SOE-buttons');
+            if (!soeButtons.classList.contains('hidden')) {
+                soeButtons.classList.add('hidden');
+            }
         }
 
         function toggleEstateMain() {
             const iframe = document.getElementById('dashboardIframe');
             iframe.src = "https://app.powerbi.com/reportEmbed?reportId=4918d015-487b-4f50-91f9-55e082169606&autoAuth=true&ctid=cba9e115-3016-4462-a1ab-a565cba0cdf1";
             const header = document.querySelector('.DB');
-            header.classList.toggle('hidden');
+            header.classList.remove('hidden');
         }
 
         function toggleEstateAnomaly() {
             const iframe = document.getElementById('dashboardIframe');
             iframe.src = "https://app.powerbi.com/reportEmbed?reportId=10fde2dd-e5e5-499f-b3c6-be1ebd99e672&autoAuth=true&ctid=cba9e115-3016-4462-a1ab-a565cba0cdf1";
-            iframe.title = "Anomaly Dashboard"
+            iframe.title = "Anomaly Dashboard";
             const header = document.querySelector('.DB');
-            header.classList.toggle('hidden');
+            header.classList.remove('hidden');
         }
 
         function toggleSOE() {
-         const iframe = document.getElementById('dashboardIframe');
-            iframe.src = "https://app.powerbi.com/reportEmbed?reportId=242316d4-1c02-4e90-a721-2670da54a5ac&autoAuth=true&ctid=cba9e115-3016-4462-a1ab-a565cba0cdf1";
-            iframe.title = "SOE"
-            const header = document.querySelector('.DB');
-            header.classList.toggle('hidden');
+            const additionalButtons = document.getElementById('SOE-buttons');
+            additionalButtons.classList.toggle('hidden');
+            
+            // Hide Estate buttons if visible
+            const estateButtons = document.getElementById('Estate-buttons');
+            if (!estateButtons.classList.contains('hidden')) {
+                estateButtons.classList.add('hidden');
+            }
         }
 
+        function toggleSOEMain() {
+            const iframe = document.getElementById('dashboardIframe');
+            iframe.src = "https://app.powerbi.com/reportEmbed?reportId=242316d4-1c02-4e90-a721-2670da54a5ac&autoAuth=true&ctid=cba9e115-3016-4462-a1ab-a565cba0cdf1";
+            iframe.title = "SOE Dashboard";
+            const header = document.querySelector('.DB');
+            header.classList.remove('hidden');
+        }
 
+        function goToStreamlit() {
+            window.open('https://batterychargeapp-q36pf5tdfjumzj2fcyxtuv.streamlit.app/', '_blank'); // Replace with your Streamlit app URL
+        }
     </script>
 </body>
 </html>
